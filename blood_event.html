@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Drive Events - e-BloodBank</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <div class="logo-icon"></div>
+                <div>
+                    <h1>e-BloodBank</h1>
+                    <p>National Blood Management System</p>
+                </div>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="ms-auto d-flex align-items-center gap-3">
+                    <a href="blood_request.html">
+                        <button class="btn btn-danger emergency-btn">
+                            <i class="fas fa-plus-circle"></i>
+                            Emergency Request
+                        </button>
+                    </a>
+
+                    <div class="d-flex align-items-center gap-2 bg-light bg-opacity-25 rounded-3 p-2">
+                        <div class="rounded-circle bg-primary"
+                            style="width: 35px; height: 35px; background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><circle cx=&quot;50&quot; cy=&quot;35&quot; r=&quot;20&quot; fill=&quot;%23667eea&quot;/><path d=&quot;M20 80 Q50 60 80 80&quot; fill=&quot;%23667eea&quot;/></svg>') center/cover !important;">
+                        </div>
+                        <div class="text-white">
+                            <div style="font-weight: 600; font-size: 0.9rem; color: #667eea;">Dr. Admin</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8; color: #667eea;">Blood Bank Officer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4">
+        <!-- Hero Section -->
+        <div class="events-hero text-center">
+            <h1 class="display-4 fw-bold mb-3">🩸 Blood Drive Events</h1>
+            <p class="lead mb-4">Join our life-saving blood donation camps across India</p>
+            <button class="create-event-btn" data-bs-toggle="modal" data-bs-target="#createEventModal">
+                <i class="fas fa-plus-circle me-2"></i>
+                Create New Event
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="d-flex justify-content-center gap-3 mb-4 flex-wrap">
+            <a href="#" class="filter-btn active" data-filter="all">All Events</a>
+            <a href="#" class="filter-btn" data-filter="upcoming">Upcoming</a>
+            <a href="#" class="filter-btn" data-filter="ongoing">Ongoing</a>
+            <a href="#" class="filter-btn" data-filter="completed">Completed</a>
+        </div>
+
+        <!-- Events Grid -->
+        <div class="row g-4 mb-5" id="eventsContainer">
+            <!-- Featured Event -->
+            <div class="col-lg-6">
+                <div class="event-card featured h-100">
+                    <div class="d-flex">
+                        <div class="event-date">
+                            <div class="event-day">15</div>
+                            <div class="event-month">AUG</div>
+                        </div>
+                        <div class="p-4 flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h4 class="fw-bold mb-1">Mega Blood Drive - Delhi</h4>
+                                <span class="event-status status-upcoming">Upcoming</span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <i class="fas fa-map-marker-alt text-danger"></i>
+                                    <span>India Gate, New Delhi</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <i class="fas fa-clock text-danger"></i>
+                                    <span>9:00 AM - 5:00 PM</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fas fa-hospital text-danger"></i>
+                                    <span>AIIMS Delhi & Red Cross Society</span>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-3">Join us for the largest blood donation camp in Delhi. Help us save lives together!</p>
+                            <div class="event-stats">
+                                <div class="stat-item">
+                                    <div class="stat-number">250</div>
+                                    <div class="stat-label">Target Donors</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">127</div>
+                                    <div class="stat-label">Registered</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">5</div>
+                                    <div class="stat-label">Days Left</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-danger mt-3 w-100">
+                                <i class="fas fa-user-plus me-2"></i>Register Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regular Events -->
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="event-card">
+                            <div class="d-flex">
+                                <div class="event-date">
+                                    <div class="event-day">12</div>
+                                    <div class="event-month">AUG</div>
+                                </div>
+                                <div class="p-3 flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h5 class="fw-bold mb-0">Corporate Drive - TCS</h5>
+                                        <span class="event-status status-ongoing">Ongoing</span>
+                                    </div>
+                                    <div class="small text-muted mb-2">
+                                        <i class="fas fa-map-marker-alt me-1"></i>TCS Campus, Bangalore
+                                    </div>
+                                    <div class="event-stats">
+                                        <div class="stat-item">
+                                            <div class="stat-number">42</div>
+                                            <div class="stat-label">Donated</div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-number">18</div>
+                                            <div class="stat-label">Pending</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="event-card">
+                            <div class="d-flex">
+                                <div class="event-date">
+                                    <div class="event-day">18</div>
+                                    <div class="event-month">AUG</div>
+                                </div>
+                                <div class="p-3 flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h5 class="fw-bold mb-0">University Drive</h5>
+                                        <span class="event-status status-upcoming">Upcoming</span>
+                                    </div>
+                                    <div class="small text-muted mb-2">
+                                        <i class="fas fa-map-marker-alt me-1"></i>IIT Mumbai
+                                    </div>
+                                    <div class="event-stats">
+                                        <div class="stat-item">
+                                            <div class="stat-number">89</div>
+                                            <div class="stat-label">Registered</div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-number">150</div>
+                                            <div class="stat-label">Target</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="event-card">
+                            <div class="d-flex">
+                                <div class="event-date">
+                                    <div class="event-day">05</div>
+                                    <div class="event-month">AUG</div>
+                                </div>
+                                <div class="p-3 flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h5 class="fw-bold mb-0">Community Camp</h5>
+                                        <span class="event-status status-completed">Completed</span>
+                                    </div>
+                                    <div class="small text-muted mb-2">
+                                        <i class="fas fa-map-marker-alt me-1"></i>Sector 21, Noida
+                                    </div>
+                                    <div class="event-stats">
+                                        <div class="stat-item">
+                                            <div class="stat-number">156</div>
+                                            <div class="stat-label">Collected</div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-number">98%</div>
+                                            <div class="stat-label">Success</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Events -->
+            <div class="col-md-6 col-lg-4">
+                <div class="event-card h-100">
+                    <div class="event-date">
+                        <div class="event-day">22</div>
+                        <div class="event-month">AUG</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0">Hospital Drive</h5>
+                            <span class="event-status status-upcoming">Upcoming</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="small text-muted mb-2">
+                                <i class="fas fa-map-marker-alt me-1"></i>Apollo Hospital, Chennai
+                            </div>
+                            <div class="small text-muted">
+                                <i class="fas fa-clock me-1"></i>8:00 AM - 4:00 PM
+                            </div>
+                        </div>
+                        <div class="event-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">67</div>
+                                <div class="stat-label">Registered</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">100</div>
+                                <div class="stat-label">Target</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-danger mt-3 w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="event-card h-100">
+                    <div class="event-date">
+                        <div class="event-day">25</div>
+                        <div class="event-month">AUG</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0">Mall Drive</h5>
+                            <span class="event-status status-upcoming">Upcoming</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="small text-muted mb-2">
+                                <i class="fas fa-map-marker-alt me-1"></i>Phoenix Mall, Pune
+                            </div>
+                            <div class="small text-muted">
+                                <i class="fas fa-clock me-1"></i>10:00 AM - 8:00 PM
+                            </div>
+                        </div>
+                        <div class="event-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">34</div>
+                                <div class="stat-label">Registered</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">80</div>
+                                <div class="stat-label">Target</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-danger mt-3 w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="event-card h-100">
+                    <div class="event-date">
+                        <div class="event-day">28</div>
+                        <div class="event-month">AUG</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0">School Drive</h5>
+                            <span class="event-status status-upcoming">Upcoming</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="small text-muted mb-2">
+                                <i class="fas fa-map-marker-alt me-1"></i>DAV School, Kolkata
+                            </div>
+                            <div class="small text-muted">
+                                <i class="fas fa-clock me-1"></i>9:00 AM - 3:00 PM
+                            </div>
+                        </div>
+                        <div class="event-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">23</div>
+                                <div class="stat-label">Registered</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">60</div>
+                                <div class="stat-label">Target</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-danger mt-3 w-100">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Volunteers Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="glass-card p-5">
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold">👥 Our Amazing Volunteers</h3>
+                        <p class="text-muted">The heroes behind every successful blood drive</p>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="volunteer-card">
+                                <div class="volunteer-avatar">DR</div>
+                                <h6 class="fw-bold mb-1">Dr. Rajesh Kumar</h6>
+                                <small class="text-muted">Lead Physician</small>
+                                <div class="mt-2">
+                                    <small class="text-success">
+                                        <i class="fas fa-check-circle me-1"></i>15 Events
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="volunteer-card">
+                                <div class="volunteer-avatar">PS</div>
+                                <h6 class="fw-bold mb-1">Priya Sharma</h6>
+                                <small class="text-muted">Nursing Coordinator</small>
+                                <div class="mt-2">
+                                    <small class="text-success">
+                                        <i class="fas fa-check-circle me-1"></i>12 Events
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="volunteer-card">
+                                <div class="volunteer-avatar">AM</div>
+                                <h6 class="fw-bold mb-1">Amit Mishra</h6>
+                                <small class="text-muted">Event Manager</small>
+                                <div class="mt-2">
+                                    <small class="text-success">
+                                        <i class="fas fa-check-circle me-1"></i>20 Events
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="volunteer-card">
+                                <div class="volunteer-avatar">SG</div>
+                                <h6 class="fw-bold mb-1">Sunita Gupta</h6>
+                                <small class="text-muted">Volunteer Coordinator</small>
+                                <div class="mt-2">
+                                    <small class="text-success">
+                                        <i class="fas fa-check-circle me-1"></i>18 Events
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Event Modal -->
+    <div class="modal fade" id="createEventModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border-radius: 20px; border: none;">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">
+                        <i class="fas fa-plus-circle me-2"></i>Create New Blood Drive Event
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="createEventForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="eventTitle" required>
+                                    <label for="eventTitle">Event Title *</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="eventType" required>
+                                        <option value="">Choose Type</option>
+                                        <option value="community">Community Drive</option>
+                                        <option value="corporate">Corporate Drive</option>
+                                        <option value="hospital">Hospital Drive</option>
+                                        <option value="university">University Drive</option>
+                                        <option value="mall">Mall Drive</option>
+                                        <option value="school">School Drive</option>
+                                    </select>
+                                    <label for="eventType">Event Type *</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="eventLocation" required>
+                                    <label for="eventLocation">Location *</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="eventDate" required>
+                                    <label for="eventDate">Date *</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="time" class="form-control" id="startTime" required>
+                                    <label for="startTime">Start Time *</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="time" class="form-control" id="endTime" required>
+                                    <label for="endTime">End Time *</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="targetDonors" min="1" required>
+                                    <label for="targetDonors">Target Donors *</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="contactPerson" required>
+                                    <label for="contactPerson">Contact Person *</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="eventDescription" style="height: 100px"></textarea>
+                                    <label for="eventDescription">Description</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="createEvent()">
+                        <i class="fas fa-save me-2"></i>Create Event
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5 py-5">
+        <div class="container-fluid px-4">
+            <div class="text-center">
+                <div class="footer-logo mb-3">🩸 e-BloodBank</div>
+                <p class="mb-4">
+                    India's National Blood Bank Management System - Saving Lives Through Technology<br>
+                    Developed by National Informatics Centre (NIC) in collaboration with NACO
+                </p>
+
+                <div class="row justify-content-center mb-4">
+                    <div class="col-auto">
+                        <a href="#" class="footer-link me-4">About NACO</a>
+                        <a href="#" class="footer-link me-4">Blood Bank Guidelines</a>
+                        <a href="#" class="footer-link me-4">Help & Support</a>
+                        <a href="#" class="footer-link me-4">Contact Us</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                    </div>
+                </div>
+
+                <div class="border-top border-white border-opacity-25 pt-4">
+                    <p class="mb-2">© 2024 Government of India. All rights reserved. | Version 3.2.1</p>
+                    <p class="small mb-0">
+                        📞 Helpline: +91-7859939940 | ✉️ Email: ehospital@gov.in
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- External JS -->
+     <script src="event.js"></script>
+    
+</body>
+
+</html>
