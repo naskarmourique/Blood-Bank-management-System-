@@ -14,9 +14,9 @@ function createParticles() {
 }
 
 function closeForm() {
-    if (confirm('Are you sure you want to close this form?')) {
+    if (confirm('❌ Are you sure you want to close this form?')) {
         window.close();
-        window.open("index.html","_self");
+        window.open("landing_page.php","_self");
     }
 }
 
