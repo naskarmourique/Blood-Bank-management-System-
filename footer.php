@@ -2,7 +2,7 @@
 <footer class="footer mt-5 py-5">
     <div class="container-fluid px-4">
         <div class="text-center">
-            <div class="footer-logo mb-3">🩸 e-BloodBank</div>
+            <div class="footer-logo mb-3">🩸 BloodConnect</div>
             <p class="mb-4">
                 India's National Blood Bank Management System - Saving Lives Through Technology<br>
                 Developed by National Informatics Centre (NIC) in collaboration with NACO
@@ -26,8 +26,15 @@
                     </a>
                     &nbsp; | &nbsp;
                     <a href="mailto:ehospital@gov.in" style="color: white; text-decoration: none;">
-                        ✉️ Email: ehospital@gov.in
+                        ✉️ Email: BloodConnect@gov.in
                     </a>
+                <div class="footer-address">
+                </div> <br> <br>
+                <h4>Our Address</h4>
+                <p>
+                    <i class="fa-solid fa-location-dot fa-bounce"></i>
+                    12/4B Park Street,  <br>    Kolkata, West Bengal 700016,
+                    India</p>
                 </p>
             </div>
         </div>

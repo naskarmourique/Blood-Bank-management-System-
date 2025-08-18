@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-BloodBank | National Blood Management System</title>
+    <title>BloodConnect | National Blood Management System</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.jpg" type="image/x-icon">
@@ -13,8 +13,7 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -93,15 +92,16 @@
                 <!-- Quick Actions -->
                 <div class="row g-4 mb-4" id="ccards">
                     <div class="col-md-6 col-lg-3">
-                        <a href="#" class="quick-action-btn donor-reg p-4 d-block text-center glass-card h-100">
+                        <a href="blood_donor_form.php" class="quick-action-btn donor-reg p-4 d-block text-center glass-card h-100">
                             <div class="action-icon">👨‍⚕️</div>
                             <h5 class="fw-bold mb-2">Donor Registration</h5>
                             <p class="mb-0" style="font-size: 0.85rem; color: #64748b;">Register new blood donors and
                                 manage their profiles</p>
                         </a>
                     </div>
+                    </a>
                     <div class="col-md-6 col-lg-3">
-                        <a href="#" class="quick-action-btn blood-collection p-4 d-block text-center glass-card h-100">
+                        <a href="blood_event.php" class="quick-action-btn blood-collection p-4 d-block text-center glass-card h-100">
                             <div class="action-icon">🩸</div>
                             <h5 class="fw-bold mb-2">Blood Collection</h5>
                             <p class="mb-0" style="font-size: 0.85rem; color: #64748b;">Record blood collection and
@@ -109,7 +109,7 @@
                         </a>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <a href="#" class="quick-action-btn inventory p-4 d-block text-center glass-card h-100">
+                        <a href="#collection" class="quick-action-btn inventory p-4 d-block text-center glass-card h-100">
                             <div class="action-icon">📦</div>
                             <h5 class="fw-bold mb-2">Inventory Management</h5>
                             <p class="mb-0" style="font-size: 0.85rem; color: #64748b;">Track blood units and component
@@ -117,7 +117,7 @@
                         </a>
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <a href="#" class="quick-action-btn emergency p-4 d-block text-center glass-card h-100">
+                        <a href="blood_request.php" class="quick-action-btn emergency p-4 d-block text-center glass-card h-100">
                             <div class="action-icon">🚨</div>
                             <h5 class="fw-bold mb-2">Emergency Requests</h5>
                             <p class="mb-0" style="font-size: 0.85rem; color: #64748b;">Handle urgent blood requirement

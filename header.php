@@ -4,7 +4,7 @@
         <a class="navbar-brand d-flex align-items-center" href="#">
             <div class="logo-icon"></div>
             <div>
-                <h1>e-BloodBank</h1>
+                <h1>BloodConnect</h1>
                 <p>National Blood Management System</p>
             </div>
         </a>
@@ -26,9 +26,10 @@
                         style="width: 35px; height: 35px; background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><circle cx=&quot;50&quot; cy=&quot;35&quot; r=&quot;20&quot; fill=&quot;%23667eea&quot;/><path d=&quot;M20 80 Q50 60 80 80&quot; fill=&quot;%23667eea&quot;/></svg>') center/cover !important;">
                     </div>
                     <div class="text-white">
-                        <div style="font-weight: 600; font-size: 0.9rem; color: #667eea;">Dr. Admin</div>
+                        <div style="font-weight: 600; font-size: 0.9rem; color: #667eea;">Dr. Mourique</div>
                         <div style="font-size: 0.75rem; opacity: 0.8;color: #667eea;">Blood Bank Officer</div>
                     </div>
+                    <?php include "home.php" ?>
                 </div>
             </div>
 

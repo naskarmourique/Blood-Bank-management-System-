@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>e-BloodBank | Services</title>
+    <title>BloodConnect | Services</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.jpg" type="image/x-icon">
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 
@@ -57,32 +57,7 @@
 
     <div class="container-fluid px-4">
         <!-- Hero Section -->
-        <section id="hero" class="hero-section py-5">
-            <div class="hero-content py-5">
-                <h1 class="hero-title mb-3">Saving Lives Through Technology</h1>
-                <p class="hero-subtitle mb-4">India's Premier Blood Bank Management System - Connecting Donors, Banks,
-                    and Patients Nationwide</p>
-
-                <div class="row g-4 mt-4">
-                    <div class="col-6 col-md-3">
-                        <div class="hero-stat-number">75+</div>
-                        <div class="hero-stat-label">Blood Banks Connected</div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="hero-stat-number">15,000+</div>
-                        <div class="hero-stat-label">Registered Donors</div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="hero-stat-number">8,500+</div>
-                        <div class="hero-stat-label">Lives Saved</div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="hero-stat-number">24/7</div>
-                        <div class="hero-stat-label">Emergency Support</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <?php include "hero.php"; ?>
 
         <!-- Carousel Section -->
         <section id="highlights" class="my-5">
@@ -186,6 +161,7 @@
                 </div>
             </div>
         </section>
+
         <!-- NEW FEEDBACK SECTION -->
         <section id="feedback" class="feedback-section py-5">
             <div class="feedback-content container">
@@ -359,25 +335,31 @@
             <h2 class="text-center mb-4"><i class="fas fa-hand-holding-heart"></i> Our Services</h2>
             <div class="row g-4 justify-content-center ">
                 <div class="col-sm-6 col-lg-3">
-                    <div class="flex-item text-center" style="height: 300px;">
-                        <i class="fas fa-user-plus"></i>
-                        <h3>Donor Registration</h3>
-                        <p>Register and manage profiles of voluntary donors nationwide.</p>
-                    </div>
+                    <a href="blood_donor_form.php" style="text-decoration:none; color:#2d3748">
+                        <div class="flex-item text-center" style="height: 300px;">
+                            <i class="fas fa-user-plus"></i>
+                            <h3>Donor Registration</h3>
+                            <p>Register and manage profiles of voluntary donors nationwide.</p>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-sm-6 col-lg-3">
-                    <div class="flex-item text-center" style="height: 300px;">
-                        <i class="fas fa-ambulance"></i>
-                        <h3>Emergency Requests</h3>
-                        <p>Real-time tracking and support for urgent blood needs.</p>
-                    </div>
+                    <a href="blood_request.php" style="text-decoration:none; color:#2d3748">
+                        <div class="flex-item text-center" style="height: 300px;">
+                            <i class="fas fa-ambulance"></i>
+                            <h3>Emergency Requests</h3>
+                            <p>Real-time tracking and support for urgent blood needs.</p>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-sm-6 col-lg-3">
-                    <div class="flex-item text-center" style="height: 300px;">
-                        <i class="fas fa-tint"></i>
-                        <h3>Blood Inventory</h3>
-                        <p>Monitor availability and expiry of all blood units.</p>
-                    </div>
+                    <a href="landing_page.php#collection" style="text-decoration:none; color:#2d3748">
+                        <div class="flex-item text-center" style="height: 300px;">
+                            <i class="fas fa-tint"></i>
+                            <h3>Blood Inventory</h3>
+                            <p>Monitor availability and expiry of all blood units.</p>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="flex-item text-center" style="height: 300px;">

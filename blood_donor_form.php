@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donor Registration - eBloodBank</title>
+    <title>Donor Registration - BloodConnect</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.jpg" type="image/x-icon">
