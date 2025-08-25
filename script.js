@@ -466,3 +466,13 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('e-BloodBank Bootstrap system initialized successfully');
         });log('e-BloodBank system initialized successfully');
 });
+
+// Add smooth scrolling animation on form load
+    document.querySelector('.form-container').style.opacity = '0';
+    document.querySelector('.form-container').style.transform = 'translateY(50px)';
+
+    setTimeout(() => {
+        document.querySelector('.form-container').style.transition = 'all 0.8s ease-out';
+        document.querySelector('.form-container').style.opacity = '1';
+        document.querySelector('.form-container').style.transform = 'translateY(0)';
+    }, 100);

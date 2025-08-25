@@ -29,7 +29,7 @@
                         <div style="font-weight: 600; font-size: 0.9rem; color: #667eea;">Dr. Mourique</div>
                         <div style="font-size: 0.75rem; opacity: 0.8;color: #667eea;">Blood Bank Officer</div>
                     </div>
-                    <?php include "home.php" ?>
+                    <?php include "icon.php" ?>
                 </div>
             </div>
 

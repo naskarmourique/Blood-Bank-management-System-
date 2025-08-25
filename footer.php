@@ -10,11 +10,11 @@
 
             <div class="row justify-content-center mb-4">
                 <div class="col-auto">
-                    <a href="#" class="footer-link me-4">About NACO</a>
-                    <a href="#" class="footer-link me-4">Blood Bank Guidelines</a>
-                    <a href="#" class="footer-link me-4">Help & Support</a>
-                    <a href="#" class="footer-link me-4">Contact Us</a>
-                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="contact.php" class="footer-link me-4">About NACO</a>
+                    <a href="contact.php" class="footer-link me-4">Blood Bank Guidelines</a>
+                    <a href="contact.php" class="footer-link me-4">Help & Support</a>
+                    <a href="contact.php" class="footer-link me-4">Contact Us</a>
+                    <a href="contact.php" class="footer-link">Privacy Policy</a>
                 </div>
             </div>
 
