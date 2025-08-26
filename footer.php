@@ -19,7 +19,7 @@
             </div>
 
             <div class="border-top border-white border-opacity-25 pt-4">
-                <p class="mb-2">© 2024 Government of India. All rights reserved. | Version 3.2.1</p>
+                <p class="mb-2">© 2025 Government of India. All rights reserved. | Version 3.2.1</p>
                 <p class="mb-0">
                     <a href="tel:+917855539940" style="color: white; text-decoration: none;">
                         📞 Helpline: +91-7855539940

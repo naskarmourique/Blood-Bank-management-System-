@@ -14,6 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -45,7 +46,7 @@
                             <span>e-Donor Cards</span>
                         </a>
                         <a href="blood_event.php" class="nav-item-custom">
-                            <i class="fas fa-id-card"></i>
+                            <i class="fa-solid fa-hand-holding-droplet"></i>
                             <span>Blood Campaign</span>
                         </a>
                     </div>
@@ -63,11 +64,11 @@
                         <h6 class="text-muted text-uppercase fw-bold mb-3"
                             style="font-size: 0.75rem; letter-spacing: 1.2px;">Inventory</h6>
                         <a href="#pending" class="nav-item-custom">
-                            <i class="fas fa-boxes"></i>
+                            <i class="fa-solid fa-boxes-stacked"></i>
                             <span>Stock Management</span>
                         </a>
                         <a href="blood_donor_form.php" class="nav-item-custom">
-                            <i class="fas fa-boxes"></i>
+                            <i class="fa-solid fa-newspaper"></i>
                             <span>Donation Form</span>
                         </a>
                     </div>
@@ -76,11 +77,11 @@
                         <h6 class="text-muted text-uppercase fw-bold mb-3"
                             style="font-size: 0.75rem; letter-spacing: 1.2px;">Abouts</h6>
                         <a href="services.php#about" class="nav-item-custom">
-                            <i class="fas fa-boxes"></i>
+                            <i class="fa-solid fa-circle-info"></i>
                             <span>About us</span>
                         </a>
                         <a href="services.php#services" class="nav-item-custom">
-                            <i class="fas fa-boxes"></i>
+                            <i class="fa-solid fa-user-tie"></i>
                             <span>Services</span>
                         </a>
                     </div>
@@ -400,9 +401,7 @@
             </div>
         </div>
     </div>
-
-
-    </div>
+    
 
     <!-- Footer -->
     <?php
@@ -411,7 +410,7 @@
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
+    <!-- External JS -->
     <script src="script.js"></script>
 </body>
 
