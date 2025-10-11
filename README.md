@@ -34,6 +34,9 @@
 - Local server with **PHP** and **MySQL** (XAMPP/WAMP recommended)  
 - [Download XAMPP](https://www.apachefriends.org/index.html)
 
+---
+
+
 ### Installation
 
 ```bash
