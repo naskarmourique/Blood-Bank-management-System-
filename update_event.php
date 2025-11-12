@@ -1,0 +1,37 @@
+<?php
+include 'admin_check.php';
+include 'connect.php';
+
+if (isset($_POST['submit'])) {
+    // Retrieve and sanitize form data
+    $id = $_POST['id'];
+    $event_name = $_POST['event_name'];
+    $event_type = $_POST['event_type'];
+    $location = $_POST['location'];
+    $event_date = $_POST['event_date'];
+    $start_time = $_POST['start_time'];
+    $end_time = $_POST['end_time'];
+    $organizer = $_POST['organizer'];
+    $contact_person = $_POST['contact_person'];
+    $target_donors = (int)$_POST['target_donors'];
+    $registered_donors = (int)$_POST['registered_donors'];
+    $donated_units = (int)$_POST['donated_units'];
+    $description = $_POST['description'];
+    $status = $_POST['status'];
+
+    // Prepare and bind
+    $stmt = $conn->prepare("UPDATE blood_events SET event_name = ?, event_type = ?, location = ?, event_date = ?, start_time = ?, end_time = ?, organizer = ?, contact_person = ?, target_donors = ?, registered_donors = ?, donated_units = ?, description = ?, status = ? WHERE id = ?");
+    $stmt->bind_param("ssssssssiiissi", $event_name, $event_type, $location, $event_date, $start_time, $end_time, $organizer, $contact_person, $target_donors, $registered_donors, $donated_units, $description, $status, $id);
+
+    if ($stmt->execute()) {
+        header("Location: blood_event.php?message=Event updated successfully!");
+    } else {
+        header("Location: edit_event.php?id=" . $id . "&error=Error updating event: " . $stmt->error);
+    }
+
+    $stmt->close();
+    mysqli_close($conn);
+} else {
+    header("Location: blood_event.php");
+}
+?>
