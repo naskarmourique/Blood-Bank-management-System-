@@ -26,7 +26,7 @@
     *   [Installation](#installation)
 *   [🤝 Contributing](#-contributing)
 *   [📄 License](#-license)
-*   [📞 Contact](#-contact)
+
 
 ---
 
@@ -103,10 +103,4 @@ We welcome contributions to BloodConnect! If you have suggestions for improvemen
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
 
-## 📞 Contact
-
-Your Name - [Your Email/GitHub Profile]
-
-Project Link: [https://github.com/naskarmourique/Blood-Bank-management-System-](https://github.com/naskarmourique/Blood-Bank-management-System-)
