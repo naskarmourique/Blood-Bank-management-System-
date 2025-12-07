@@ -308,19 +308,18 @@ if (session_status() === PHP_SESSION_NONE) {
 
                             <div class="p-4">
                                 <?php
-                                $sql_activity = "(SELECT 'donation' AS activity_type, 'Blood Donation Completed' AS title, CONCAT(d.FULL_NAME, ' donated ', dn.blood_group, ' blood') AS description, dn.created_at AS activity_date FROM donations dn JOIN donor d ON dn.donor_id = d.id)
+                                $sql_activity = "(SELECT 'donation' AS activity_type, 'Blood Donation Completed' AS title, CONCAT(d.FULL_NAME, ' donated ', dn.blood_group, ' blood') AS description, dn.created_at AS activity_date FROM donations dn JOIN donor d ON dn.donor_id = d.id ORDER BY dn.created_at DESC LIMIT 1)
                                 UNION ALL
-                                (SELECT 'request' AS activity_type, 'Emergency Request' AS title, CONCAT(br.UNITS, ' unit(s) of ', br.BLOOD_GROUP, ' needed at ', br.HOSPITAL_NAME) AS description, br.created_at AS activity_date FROM blood_request br WHERE br.status = 'pending')
+                                (SELECT 'request' AS activity_type, 'Emergency Request' AS title, CONCAT(br.UNITS, ' unit(s) of ', br.BLOOD_GROUP, ' needed at ', br.HOSPITAL_NAME) AS description, br.created_at AS activity_date FROM blood_request br WHERE br.status = 'pending' ORDER BY br.created_at DESC LIMIT 1)
                                 UNION ALL
-                                (SELECT 'donor' AS activity_type, 'New Donor Registered' AS title, CONCAT(d.FULL_NAME, ' joined as a ', d.BLOOD_GROUP, ' donor') AS description, d.created_at AS activity_date FROM donor d)
+                                (SELECT 'donor' AS activity_type, 'New Donor Registered' AS title, CONCAT(d.FULL_NAME, ' joined as a ', d.BLOOD_GROUP, ' donor') AS description, d.created_at AS activity_date FROM donor d ORDER BY d.created_at DESC LIMIT 1)
                                 UNION ALL
-                                (SELECT 'event' AS activity_type, 'Blood Camp Organized' AS title, CONCAT(e.event_name, ' at ', e.location) AS description, e.created_at AS activity_date FROM blood_events e WHERE e.status = 'approved')
-                                ORDER BY activity_date DESC
-                                LIMIT 4";
+                                (SELECT 'event' AS activity_type, 'Blood Camp Organized' AS title, CONCAT(e.event_name, ' at ', e.location) AS description, e.created_at AS activity_date FROM blood_events e WHERE e.status = 'approved' ORDER BY e.created_at DESC LIMIT 1)
+                                ORDER BY activity_date DESC";
 
                                 $result_activity = mysqli_query($conn, $sql_activity);
 
-                                if (mysqli_num_rows($result_activity) > 0) {
+                                if ($result_activity && mysqli_num_rows($result_activity) > 0) {
                                     while ($row = mysqli_fetch_assoc($result_activity)) {
                                         $icon = '';
                                         $icon_class = '';
