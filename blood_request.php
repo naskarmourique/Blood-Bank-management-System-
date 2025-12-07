@@ -12,6 +12,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="donor.css">
+    <link rel="stylesheet" href="particles.css">
 </head>
 
 <body>
@@ -141,6 +142,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="request.js"></script>
+    <script src="particles.js"></script>
 </body>
 
 </html>

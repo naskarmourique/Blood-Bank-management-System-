@@ -20,6 +20,7 @@
 
     <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="particles.css">
 
     <style>
         .rating-input {
@@ -50,6 +51,7 @@
 </head>
 
 <body>
+    <div class="particles"></div>
     <!-- Navbar -->
     <?php
     include "header.php";
@@ -403,6 +405,7 @@
             });
         };
     </script>
+    <script src="particles.js"></script>
 </body>
 
 </html>

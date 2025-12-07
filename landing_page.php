@@ -16,9 +16,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="particles.css">
 </head>
 
 <body>
+    <div class="particles"></div>
     <!-- Navbar -->
     <?php
     include "header.php";
@@ -418,6 +420,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <!-- External JS -->
     <script src="script.js"></script>
+    <script src="theme.js"></script>
+    <script src="particles.js"></script>
 </body>
 
 </html>

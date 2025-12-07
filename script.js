@@ -476,3 +476,5 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.form-container').style.opacity = '1';
         document.querySelector('.form-container').style.transform = 'translateY(0)';
     }, 100);
+
+

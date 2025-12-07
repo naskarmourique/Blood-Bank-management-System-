@@ -15,8 +15,10 @@ if (session_status() === PHP_SESSION_NONE) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="donor.css">
+    <link rel="stylesheet" href="particles.css">
 </head>
 <body>
+    <div class="particles"></div>
     <?php include "header.php"; ?>
     <div class="main-wrapper">
         <div class="form-container">
@@ -81,6 +83,7 @@ if (session_status() === PHP_SESSION_NONE) {
     </div>
     <?php include "footer.php"; ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="particles.js"></script>
     <script>
         // Set minimum date for the event date input
         const dateInput = document.getElementById('eventDate');

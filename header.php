@@ -13,6 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <p>National Blood Management System</p>
             </div>
         </a>
+        
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -23,6 +24,18 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="blood_request.php"><button class="btn btn-danger emergency-btn">
                         <i class="fas fa-plus-circle"></i>
                         Emergency Request
+                    </button>
+                </a>
+
+                <a href="blood_donor_form.php"><button class="btn btn-danger emergency-btn">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        Donate Blood
+                    </button>
+                </a>
+
+                <a href="blood_event.php"><button class="btn btn-danger emergency-btn">
+                        <i class="fa-solid fa-hand-holding-droplet"></i>
+                        Events
                     </button>
                 </a>
 
@@ -51,21 +64,21 @@ if (session_status() === PHP_SESSION_NONE) {
                         <?php
                     }
                     ?>
-                    <a href="logout.php" class="btn btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="logout.php" class="btn btn-logout" style="transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 8px 20px rgba(0, 0, 0, 0.3)'; this.style.color='white';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'; this.style.color='white';"><i class="fas fa-sign-out-alt"></i></a>
                 <?php else: ?>
-                    <a href="login.php" class="btn btn-login"><i class="fas fa-sign-in-alt"></i> Admin Login</a>
+                    <a href="login.php" class="btn btn-login" style="transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 8px 20px rgba(0, 0, 0, 0.3)'; this.style.color='white';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'; this.style.color='white';"><i class="fas fa-sign-in-alt"></i> Admin Login</a>
                 <?php endif; ?>
 
                 <div class="d-flex align-items-center gap-2 bg-light bg-opacity-25 rounded-3 p-2">
                     <div class="rounded-circle bg-primary"
                         style="width: 35px; height: 35px; background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><circle cx=&quot;50&quot; cy=&quot;35&quot; r=&quot;20&quot; fill=&quot;%23667eea&quot;/><path d=&quot;M20 80 Q50 60 80 80&quot; fill=&quot;%23667eea&quot;/></svg>') center/cover !important;">
-                    </div>
-                    <div class="text-white">
-                        <div style="font-weight: 600; font-size: 0.9rem; color: #667eea;">Mourique</div>
-                        <div style="font-size: 0.75rem; opacity: 0.8;color: #667eea;">Blood Bank Officer</div>
-                    </div>
-                    <?php include "icon.php" ?>
-                </div>
+                            </div>
+                            <div class="text-white">
+                                <div style="font-weight: 600; font-size: 0.9rem; color: #667eea;">Mourique</div>
+                                <div style="font-size: 0.75rem; opacity: 0.8;color: #667eea;">Blood Bank Officer</div>
+                            </div>
+                            
+                        </div>
             </div>
 
         </div>

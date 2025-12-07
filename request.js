@@ -1,17 +1,4 @@
-// Create floating particles
-function createParticles() {
-    const particlesContainer = document.querySelector('.particles');
-    const particleCount = 50;
 
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 15 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-        particlesContainer.appendChild(particle);
-    }
-}
 
 function closeForm() {
     if (confirm('❌ Are you sure you want to close this form?')) {
@@ -207,7 +194,6 @@ function handleSubmit(event) {
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', function () {
-    createParticles();
     document.getElementById('requestForm').addEventListener('submit', handleSubmit);
 
     document.getElementById('patientName').addEventListener('blur', validatePatientName);

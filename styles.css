@@ -63,6 +63,12 @@
             background: var(--primary-gradient);
             border: none;
             color: white;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        a.btn-logout:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
         }
 
         @keyframes pulse {
@@ -942,3 +948,4 @@
 .button-17:disabled {
   box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
 }
+

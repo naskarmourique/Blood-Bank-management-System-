@@ -21,6 +21,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="particles.css">
 
     <style>
         /* Masonry layout for events container */
@@ -54,6 +55,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
 </head>
 
 <body>
+    <div class="particles"></div>
     <!-- Navbar -->
     <?php
     include "header.php";
@@ -403,7 +405,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                     <!-- External JS -->
                     <script src="event.js"></script>
             
-            </body>
+                        <script src="particles.js"></script>
+
+</body>
             
             </html>
             
