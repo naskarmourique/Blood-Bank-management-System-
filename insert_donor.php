@@ -64,7 +64,7 @@ if ($PASSWORD !== $C_PASSWORD) {
     exit;
 }
 
-$insert = "INSERT INTO `donor`(`FULL_NAME`, `TYPE`, `BLOOD_GROUP`, `STATE`, `CITY`, `MOB`, `EMAIL`, `PASSWORD`, `S_QUESTION`, `S_ANSWER`, `LAST_DONATE`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$insert = "INSERT INTO `donor`(`FULL_NAME`, `TYPE`, `BLOOD_GROUP`, `STATE`, `CITY`, `MOB`, `EMAIL`, `PASSWORD`, `S_QUESTION`, `S_ANSWER`, `LAST_DONATE`, `status`, `event_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = mysqli_prepare($conn, $insert);
 
@@ -73,7 +73,10 @@ if ($stmt === false) {
     exit;
 }
 
-mysqli_stmt_bind_param($stmt, "sssssssssss", $FULL_NAME, $TYPE, $BLOOD_GROUP, $STATE, $CITY, $MOB, $EMAIL, $PASSWORD, $S_QUESTION, $S_ANSWER, $convertedLastDonation);
+$status = 'pending'; // Default status for new donor registrations
+$event_id = null; // Default event_id is null, as it's not coming from the form
+
+mysqli_stmt_bind_param($stmt, "sssssssssssss", $FULL_NAME, $TYPE, $BLOOD_GROUP, $STATE, $CITY, $MOB, $EMAIL, $PASSWORD, $S_QUESTION, $S_ANSWER, $convertedLastDonation, $status, $event_id);
 
 if (mysqli_stmt_execute($stmt)) {
     if (mysqli_stmt_affected_rows($stmt) == 1) {

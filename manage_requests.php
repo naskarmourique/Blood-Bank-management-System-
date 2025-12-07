@@ -146,6 +146,77 @@ if ($result_blood && mysqli_num_rows($result_blood) > 0) {
                     </div>
                 <?php endif; ?>
 
+                <hr class="my-5">
+
+                <h3 class="mb-3 fw-bold"><i class="fas fa-heart me-2"></i> Donation Requests</h3>
+                <?php
+                // Fetch all pending donor requests
+                $sql_donors = "SELECT * FROM donor WHERE status = 'pending' ORDER BY created_at DESC";
+                $result_donors = mysqli_query($conn, $sql_donors);
+                $pending_donor_requests = [];
+                if ($result_donors && mysqli_num_rows($result_donors) > 0) {
+                    while ($row = mysqli_fetch_assoc($result_donors)) {
+                        $pending_donor_requests[] = $row;
+                    }
+                }
+                ?>
+
+                <?php if (empty($pending_donor_requests)): ?>
+                    <div class="alert alert-info">There are no pending donation requests to review.</div>
+                <?php else: ?>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Donor Name</th>
+                                    <th>Blood Group</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th>Event (if any)</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($pending_donor_requests as $donor): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($donor['FULL_NAME']); ?></td>
+                                        <td><?php echo htmlspecialchars($donor['BLOOD_GROUP']); ?></td>
+                                        <td><?php echo htmlspecialchars($donor['MOB']); ?></td>
+                                        <td><?php echo htmlspecialchars($donor['EMAIL']); ?></td>
+                                        <td>
+                                            <?php if ($donor['event_id']): ?>
+                                                <?php
+                                                $sql_event_name = "SELECT event_name FROM blood_events WHERE id = ?";
+                                                $stmt_event_name = mysqli_prepare($conn, $sql_event_name);
+                                                mysqli_stmt_bind_param($stmt_event_name, "i", $donor['event_id']);
+                                                mysqli_stmt_execute($stmt_event_name);
+                                                $result_event_name = mysqli_stmt_get_result($stmt_event_name);
+                                                if ($event_row = mysqli_fetch_assoc($result_event_name)) {
+                                                    echo htmlspecialchars($event_row['event_name']);
+                                                } else {
+                                                    echo "N/A";
+                                                }
+                                                mysqli_stmt_close($stmt_event_name);
+                                                ?>
+                                            <?php else: ?>
+                                                No Event
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="approve_donor.php?id=<?php echo $donor['id']; ?>" class="btn btn-success btn-sm me-2 btn-action">
+                                                <i class="fas fa-check"></i> Approve
+                                            </a>
+                                            <a href="reject_donor.php?id=<?php echo $donor['id']; ?>" class="btn btn-danger btn-sm btn-action" onclick="return confirm('Are you sure you want to reject this donor request?');">
+                                                <i class="fas fa-times"></i> Reject
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>
