@@ -135,9 +135,6 @@ if ($result_blood && mysqli_num_rows($result_blood) > 0) {
                                             <a href="reject_blood_request.php?id=<?php echo $request['id']; ?>" class="btn btn-danger btn-sm me-2 btn-action" onclick="return confirm('Are you sure you want to reject this blood request?');">
                                                 <i class="fas fa-times"></i> Reject
                                             </a>
-                                            <a href="process_blood_request.php?id=<?php echo $request['id']; ?>" class="btn btn-warning btn-sm btn-action">
-                                                <i class="fas fa-cogs"></i> Process
-                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
