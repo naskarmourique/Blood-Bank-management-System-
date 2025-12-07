@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -302,41 +307,68 @@
                             </div>
 
                             <div class="p-4">
-                                <div class="d-flex align-items-center gap-3 mb-3 p-3 rounded">
-                                    <div class="activity-icon donation">🩸</div>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold mb-1">Blood Donation Completed</div>
-                                        <div class="text-muted small">Rahul Kumar donated O+ blood</div>
-                                    </div>
-                                    <div class="text-muted small">2 mins ago</div>
-                                </div>
+                                <?php
+                                $sql_activity = "(SELECT 'donation' AS activity_type, 'Blood Donation Completed' AS title, CONCAT(d.FULL_NAME, ' donated ', dn.blood_group, ' blood') AS description, dn.created_at AS activity_date FROM donations dn JOIN donor d ON dn.donor_id = d.id)
+                                UNION ALL
+                                (SELECT 'request' AS activity_type, 'Emergency Request' AS title, CONCAT(br.UNITS, ' unit(s) of ', br.BLOOD_GROUP, ' needed at ', br.HOSPITAL_NAME) AS description, br.created_at AS activity_date FROM blood_request br WHERE br.status = 'pending')
+                                UNION ALL
+                                (SELECT 'donor' AS activity_type, 'New Donor Registered' AS title, CONCAT(d.FULL_NAME, ' joined as a ', d.BLOOD_GROUP, ' donor') AS description, d.created_at AS activity_date FROM donor d)
+                                UNION ALL
+                                (SELECT 'event' AS activity_type, 'Blood Camp Organized' AS title, CONCAT(e.event_name, ' at ', e.location) AS description, e.created_at AS activity_date FROM blood_events e WHERE e.status = 'approved')
+                                ORDER BY activity_date DESC
+                                LIMIT 4";
 
-                                <div class="d-flex align-items-center gap-3 mb-3 p-3 rounded">
-                                    <div class="activity-icon request">🚨</div>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold mb-1">Emergency Request</div>
-                                        <div class="text-muted small">AB- blood needed at AIIMS Delhi</div>
-                                    </div>
-                                    <div class="text-muted small">15 mins ago</div>
-                                </div>
+                                $result_activity = mysqli_query($conn, $sql_activity);
 
+                                if (mysqli_num_rows($result_activity) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result_activity)) {
+                                        $icon = '';
+                                        $icon_class = '';
+                                        switch ($row['activity_type']) {
+                                            case 'donation':
+                                                $icon = '🩸';
+                                                $icon_class = 'donation';
+                                                break;
+                                            case 'request':
+                                                $icon = '🚨';
+                                                $icon_class = 'request';
+                                                break;
+                                            case 'donor':
+                                                $icon = '👤';
+                                                $icon_class = 'registration';
+                                                break;
+                                            case 'event':
+                                                $icon = '🩸';
+                                                $icon_class = 'donation';
+                                                break;
+                                        }
+                                        // time ago logic
+                                        $time_ago = strtotime($row['activity_date']);
+                                        $time_diff = time() - $time_ago;
+                                        if ($time_diff < 60) {
+                                            $time_text = 'just now';
+                                        } elseif ($time_diff < 3600) {
+                                            $time_text = floor($time_diff / 60) . ' mins ago';
+                                        } elseif ($time_diff < 86400) {
+                                            $time_text = floor($time_diff / 3600) . ' hours ago';
+                                        } else {
+                                            $time_text = floor($time_diff / 86400) . ' days ago';
+                                        }
+                                ?>
                                 <div class="d-flex align-items-center gap-3 mb-3 p-3 rounded">
-                                    <div class="activity-icon registration">👤</div>
+                                    <div class="activity-icon <?php echo $icon_class; ?>"><?php echo $icon; ?></div>
                                     <div class="flex-grow-1">
-                                        <div class="fw-semibold mb-1">New Donor Registered</div>
-                                        <div class="text-muted small">Priya Sharma joined as B+ donor</div>
+                                        <div class="fw-semibold mb-1"><?php echo $row['title']; ?></div>
+                                        <div class="text-muted small"><?php echo $row['description']; ?></div>
                                     </div>
-                                    <div class="text-muted small">1 hour ago</div>
+                                    <div class="text-muted small"><?php echo $time_text; ?></div>
                                 </div>
-
-                                <div class="d-flex align-items-center gap-3 p-3 rounded">
-                                    <div class="activity-icon donation">🩸</div>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold mb-1">Blood Camp Organized</div>
-                                        <div class="text-muted small">50 donors participated in Delhi camp</div>
-                                    </div>
-                                    <div class="text-muted small">3 hours ago</div>
-                                </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo "<p class='text-center'>No recent activity</p>";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -345,63 +377,83 @@
                     <div class="col-lg-6">
                         <div id="pending" class="glass-card h-100">
                             <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
-                                <h4 class.fw-bold mb-0">🚨 Pending Requests</h4>
+                                <h4 class="fw-bold mb-0">🚨 Pending Requests</h4>
                             </div>
 
                             <div class="p-4">
-                                <div class="alert alert-danger border-0 mb-3"
-                                    style="background: rgba(255, 65, 108, 0.1); border-left: 4px solid #ff416c !important;">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <div>
-                                            <div class="fw-bold text-danger">🚨 URGENT</div>
-                                            <div class="small text-muted">AIIMS New Delhi</div>
-                                        </div>
-                                        <div class="text-end">
-                                            <div class="fw-bold">AB- Negative</div>
-                                            <div class="small text-muted">2 units needed</div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="small text-muted">Patient: Emergency Surgery</div>
-                                        <button class="btn btn-danger btn-sm">Process</button>
-                                    </div>
-                                </div>
+                                <?php
+                                // Re-establish connection if it's closed
+                                if (!isset($conn) || !$conn) {
+                                    include 'connect.php';
+                                }
 
-                                <div class="alert alert-warning border-0 mb-3"
-                                    style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b !important;">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <div>
-                                            <div class="fw-bold text-warning">🏥 HIGH PRIORITY</div>
-                                            <div class="small text-muted">Max Hospital Saket</div>
-                                        </div>
-                                        <div class="text-end">
-                                            <div class="fw-bold">O+ Positive</div>
-                                            <div class="small text-muted">4 units needed</div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="small text-muted">Patient: Accident Case</div>
-                                        <button class="btn btn-warning btn-sm">Process</button>
-                                    </div>
-                                </div>
+                                $priorities = ['urgent', 'high', 'routine'];
+                                $requests = [];
 
-                                <div class="alert alert-success border-0"
-                                    style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981 !important;">
+                                foreach ($priorities as $priority) {
+                                    $sql = "SELECT * FROM blood_request WHERE status = 'pending' AND priority = ? ORDER BY REQUIRED_DATE ASC LIMIT 1";
+                                    $stmt = mysqli_prepare($conn, $sql);
+                                    mysqli_stmt_bind_param($stmt, "s", $priority);
+                                    mysqli_stmt_execute($stmt);
+                                    $result = mysqli_stmt_get_result($stmt);
+                                    if ($result && mysqli_num_rows($result) > 0) {
+                                        $requests[$priority] = mysqli_fetch_assoc($result);
+                                    } else {
+                                        $requests[$priority] = null;
+                                    }
+                                }
+
+                                foreach ($priorities as $priority):
+                                    $row = $requests[$priority];
+                                    if ($row):
+                                        $priority_class = '';
+                                        $priority_text = '';
+                                        $style = '';
+                                        switch ($row['priority']) {
+                                            case 'urgent':
+                                                $priority_class = 'danger';
+                                                $priority_text = 'URGENT';
+                                                $style = 'background: rgba(255, 65, 108, 0.1); border-left: 4px solid #ff416c !important;';
+                                                break;
+                                            case 'high':
+                                                $priority_class = 'warning';
+                                                $priority_text = 'HIGH PRIORITY';
+                                                $style = 'background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b !important;';
+                                                break;
+                                            case 'routine':
+                                                $priority_class = 'success';
+                                                $priority_text = 'ROUTINE';
+                                                $style = 'background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981 !important;';
+                                                break;
+                                        }
+                                ?>
+                                <div class="alert alert-<?php echo $priority_class; ?> border-0 mb-3"
+                                    style="<?php echo $style; ?>">
                                     <div class="d-flex justify-content-between align-items-start mb-2">
                                         <div>
-                                            <div class="fw-bold text-success">📋 ROUTINE</div>
-                                            <div class="small text-muted">Apollo Hospital</div>
+                                            <div class="fw-bold text-<?php echo $priority_class; ?>">🚨 <?php echo $priority_text; ?></div>
+                                            <div class="small text-muted"><?php echo $row['hospital_name']; ?></div>
                                         </div>
                                         <div class="text-end">
-                                            <div class="fw-bold">A+ Positive</div>
-                                            <div class="small text-muted">1 unit needed</div>
+                                            <div class="fw-bold"><?php echo $row['blood_group']; ?></div>
+                                            <div class="small text-muted"><?php echo $row['units']; ?> units needed</div>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div class="small text-muted">Patient: Scheduled Surgery</div>
-                                        <button class="btn btn-success btn-sm">Process</button>
+                                        <div class="small text-muted">Patient: <?php echo $row['patient_name']; ?></div>
+                                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                                            <a href="manage_requests.php?request_id=<?php echo $row['id']; ?>" class="btn btn-<?php echo $priority_class; ?> btn-sm">Process</a>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
+                                <?php
+                                    endif;
+                                endforeach;
+
+                                if (empty(array_filter($requests))) {
+                                    echo "<p class='text-center'>No pending requests</p>";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

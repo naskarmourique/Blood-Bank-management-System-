@@ -1,8 +1,4 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
+
 <!-- Navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-light sticky-top">
     <div class="container-fluid">
@@ -45,18 +41,30 @@ if (session_status() === PHP_SESSION_NONE) {
                     if ($_SESSION['role'] === 'admin') {
                         // Fetch pending request count for admin
                         include 'connect.php';
-                        $sql_count = "SELECT COUNT(*) as pending_count FROM blood_events WHERE status = 'pending'";
-                        $result_count = mysqli_query($conn, $sql_count);
-                        $pending_count = 0;
-                        if ($result_count) {
-                            $pending_count = mysqli_fetch_assoc($result_count)['pending_count'];
+
+                        // Count pending events
+                        $sql_events_count = "SELECT COUNT(*) as pending_events FROM blood_events WHERE status = 'pending'";
+                        $result_events_count = mysqli_query($conn, $sql_events_count);
+                        $pending_events_count = 0;
+                        if ($result_events_count) {
+                            $pending_events_count = mysqli_fetch_assoc($result_events_count)['pending_events'];
                         }
+
+                        // Count pending blood requests
+                        $sql_blood_count = "SELECT COUNT(*) as pending_blood FROM blood_request WHERE status = 'pending'";
+                        $result_blood_count = mysqli_query($conn, $sql_blood_count);
+                        $pending_blood_count = 0;
+                        if ($result_blood_count) {
+                            $pending_blood_count = mysqli_fetch_assoc($result_blood_count)['pending_blood'];
+                        }
+
+                        $total_pending_count = $pending_events_count + $pending_blood_count;
                         ?>
                         <a href="manage_requests.php" class="btn btn-warning position-relative">
                             <i class="fas fa-tasks"></i> Manage Requests
-                            <?php if ($pending_count > 0): ?>
+                            <?php if ($total_pending_count > 0): ?>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    <?php echo $pending_count; ?>
+                                    <?php echo $total_pending_count; ?>
                                     <span class="visually-hidden">pending requests</span>
                                 </span>
                             <?php endif; ?>
