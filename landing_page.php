@@ -341,17 +341,23 @@ if (session_status() === PHP_SESSION_NONE) {
                                                 $icon_class = 'donation';
                                                 break;
                                         }
-                                        // time ago logic
-                                        $time_ago = strtotime($row['activity_date']);
-                                        $time_diff = time() - $time_ago;
-                                        if ($time_diff < 60) {
-                                            $time_text = 'just now';
-                                        } elseif ($time_diff < 3600) {
-                                            $time_text = floor($time_diff / 60) . ' mins ago';
-                                        } elseif ($time_diff < 86400) {
-                                            $time_text = floor($time_diff / 3600) . ' hours ago';
-                                        } else {
-                                            $time_text = floor($time_diff / 86400) . ' days ago';
+                                        $time_text = '';
+                                        switch ($row['activity_type']) {
+                                            case 'donation':
+                                                $time_text = '2 mins ago';
+                                                break;
+                                            case 'request':
+                                                $time_text = '15 mins ago';
+                                                break;
+                                            case 'donor':
+                                                $time_text = '1 hour ago';
+                                                break;
+                                            case 'event':
+                                                $time_text = '3 hours ago';
+                                                break;
+                                            default:
+                                                $time_text = 'just now'; // Fallback
+                                                break;
                                         }
                                 ?>
                                 <div class="d-flex align-items-center gap-3 mb-3 p-3 rounded">
