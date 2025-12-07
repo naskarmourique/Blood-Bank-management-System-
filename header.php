@@ -58,7 +58,15 @@
                             $pending_blood_count = mysqli_fetch_assoc($result_blood_count)['pending_blood'];
                         }
 
-                        $total_pending_count = $pending_events_count + $pending_blood_count;
+                        // Count pending donor requests
+                        $sql_donor_count = "SELECT COUNT(*) as pending_donors FROM donor WHERE status = 'pending'";
+                        $result_donor_count = mysqli_query($conn, $sql_donor_count);
+                        $pending_donor_count = 0;
+                        if ($result_donor_count) {
+                            $pending_donor_count = mysqli_fetch_assoc($result_donor_count)['pending_donors'];
+                        }
+
+                        $total_pending_count = $pending_events_count + $pending_blood_count + $pending_donor_count;
                         ?>
                         <a href="manage_requests.php" class="btn btn-warning position-relative">
                             <i class="fas fa-tasks"></i> Manage Requests

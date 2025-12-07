@@ -179,10 +179,10 @@ if ($result_blood && mysqli_num_rows($result_blood) > 0) {
                             <tbody>
                                 <?php foreach ($pending_donor_requests as $donor): ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($donor['FULL_NAME']); ?></td>
-                                        <td><?php echo htmlspecialchars($donor['BLOOD_GROUP']); ?></td>
-                                        <td><?php echo htmlspecialchars($donor['MOB']); ?></td>
-                                        <td><?php echo htmlspecialchars($donor['EMAIL']); ?></td>
+                                        <td><?php echo htmlspecialchars($donor['full_name']); ?></td>
+                                        <td><?php echo htmlspecialchars($donor['blood_group']); ?></td>
+                                        <td><?php echo htmlspecialchars($donor['mob']); ?></td>
+                                        <td><?php echo htmlspecialchars($donor['email']); ?></td>
                                         <td>
                                             <?php if ($donor['event_id']): ?>
                                                 <?php
