@@ -85,18 +85,60 @@
                     <a href="login.php" class="btn btn-login" style="transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 8px 20px rgba(0, 0, 0, 0.3)'; this.style.color='white';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'; this.style.color='white';"><i class="fas fa-sign-in-alt"></i> Admin Login</a>
                 <?php endif; ?>
 
-                <div class="d-flex align-items-center gap-2 bg-light bg-opacity-25 rounded-3 p-2">
-                    <div class="rounded-circle bg-primary"
-                        style="width: 35px; height: 35px; background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><circle cx=&quot;50&quot; cy=&quot;35&quot; r=&quot;20&quot; fill=&quot;%23667eea&quot;/><path d=&quot;M20 80 Q50 60 80 80&quot; fill=&quot;%23667eea&quot;/></svg>') center/cover !important;">
-                            </div>
-                            <div class="text-white">
-                                <div style="font-weight: 600; font-size: 0.9rem; color: #667eea;">Mourique</div>
-                                <div style="font-size: 0.75rem; opacity: 0.8;color: #667eea;">Blood Bank Officer</div>
-                            </div>
-                            
+                <!-- BBO Details Trigger -->
+                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#bboDetailsModal" style="cursor: pointer;">
+                    <div class="d-flex align-items-center gap-2 bg-light bg-opacity-25 rounded-3 p-2">
+                        <div class="rounded-circle bg-primary"
+                            style="width: 35px; height: 35px; background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><circle cx=&quot;50&quot; cy=&quot;35&quot; r=&quot;20&quot; fill=&quot;%23667eea&quot;/><path d=&quot;M20 80 Q50 60 80 80&quot; fill=&quot;%23667eea&quot;/></svg>') center/cover !important;">
                         </div>
+                        <div class="text-white">
+                            <div style="font-weight: 600; font-size: 0.9rem; color: #667eea;">Mourique</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8;color: #667eea;">Blood Bank Officer</div>
+                        </div>
+                    </div>
+                </a>
             </div>
-
         </div>
     </div>
 </nav>
+
+<!-- BBO Details Modal -->
+<div class="modal fade" id="bboDetailsModal" tabindex="-1" aria-labelledby="bboDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+      <div class="modal-header text-white" style="background: linear-gradient(45deg, #a80505, #e63737); border-bottom: none;">
+        <h5 class="modal-title" id="bboDetailsModalLabel"><i class="fas fa-user-shield me-2"></i>Blood Bank Officer Profile</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="text-center mb-4">
+            <img src="favicon.jpg" class="rounded-circle border border-2 border-danger p-1" alt="BBO" width="100">
+            <h4 class="mt-3 mb-0">Mourique</h4>
+            <p class="text-muted">Lead Blood Bank Officer</p>
+            <p class="fst-italic text-danger">"Ensuring every drop counts towards saving a life."</p>
+        </div>
+        
+        <div class="card mb-3">
+            <div class="card-header bg-light">
+                <i class="fas fa-tasks me-2"></i>Key Responsibilities
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Overseeing daily inventory and stock management.</li>
+                <li class="list-group-item">Coordinating with hospitals for urgent requests.</li>
+                <li class="list-group-item">Ensuring compliance with safety standards.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+             <div class="card-header bg-light">
+                <i class="fas fa-id-card me-2"></i>Official Contact
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i class="fas fa-envelope me-2"></i><strong>Email:</strong> <a href="mailto:mourique.bbo@bloodconnect.org">mourique.bbo@bloodconnect.org</a></li>
+                <li class="list-group-item"><i class="fas fa-phone me-2"></i><strong>Helpline:</strong> +91 98765 43210</li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
