@@ -46,12 +46,6 @@ Our mission is to **save lives** by creating a seamless and efficient ecosystem 
 
 ---
 
-## 📸 Screenshots
-
-*(Add some screenshots of your application here to showcase its features and UI!)*
-
----
-
 ## 🛠️ Tech Stack
 
 | Category   | Technology                                                                                                                                                                                                                                                                                                                             |
