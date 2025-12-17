@@ -17,6 +17,7 @@
 
 - [🚀 Mission](#-mission)
 - [✨ Key Features](#-key-features)
+- [🚀 Usage Scenarios](#-usage-scenarios)
 - [📸 Screenshots](#-screenshots)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [📂 Project Structure](#-project-structure)
@@ -43,6 +44,19 @@ Our mission is to **save lives** by creating a seamless and efficient ecosystem 
 | 💬 **Feedback System**      | Collect valuable feedback from users to improve the system.                                                                              |   ✅   |
 | 📞 **Contact & Support**    | Emergency helplines and contact forms for immediate assistance.                                                                         |   ✅   |
 | 📱 **Responsive Design**    | Fully responsive UI built with Bootstrap 5, ensuring a great experience on any device.                                                  |   ✅   |
+
+---
+
+## 🚀 Usage Scenarios
+
+> ### 🏥 Scenario 1: The Patient's Family in an Emergency
+> A family member urgently needs O- blood. They visit BloodConnect, navigate to the **Blood Request** form, and fill in the patient's details, hospital, and today's date. The request is submitted and immediately flagged as `Urgent` in the admin dashboard.
+
+> ### ❤️ Scenario 2: The Proactive Donor
+> A college student wants to donate blood. They browse the **Blood Drive Events** page, find a camp happening at their university next week, and register as a donor. They receive a confirmation and feel good about contributing to the community.
+
+> ### 📊 Scenario 3: The Blood Bank Administrator
+> An administrator logs into the **Admin Dashboard**. They immediately see the new `Urgent` request. With one click, they check the real-time inventory for O- blood. Seeing they have stock, they approve the request and contact the patient's family to coordinate. The inventory automatically decrements.
 
 ---
 
