@@ -19,6 +19,20 @@ if (isset($_POST['pName'])) {
         exit;
     }
 
+    // Server-side validation for required_date
+    $currentDate = new DateTime();
+    $reqDateObj = new DateTime($required_date);
+
+    // Set time components of current date to 00:00:00 for accurate comparison of just the date part
+    $currentDate->setTime(0, 0, 0);
+    $reqDateObj->setTime(0, 0, 0);
+
+
+    if ($reqDateObj < $currentDate) {
+        header("Location: blood_request.php?status=error&message=" . urlencode('Required Date cannot be in the past.'));
+        exit;
+    }
+
     try {
         mysqli_begin_transaction($conn);
 

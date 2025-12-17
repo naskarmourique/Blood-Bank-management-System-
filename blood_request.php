@@ -115,7 +115,7 @@
                     <div class="form-group">
                         <label for="neededDate" class="form-label"><i class="fas fa-calendar-alt"></i> Required By Date
                             <span class="required">*</span></label>
-                        <input type="date" class="form-control" id="neededDate" name="rDate" required>
+                        <input type="date" class="form-control" id="neededDate" name="rDate" min="<?php echo date('Y-m-d'); ?>" required>
                         <div class="invalid-feedback">Please select a date</div>
                     </div>
 

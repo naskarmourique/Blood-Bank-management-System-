@@ -117,17 +117,48 @@ if ($result_blood && mysqli_num_rows($result_blood) > 0) {
                                     <th>Blood Group</th>
                                     <th>Units</th>
                                     <th>Required Date</th>
+                                    <th>Priority</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($pending_blood_requests as $request): ?>
+                                    <?php
+                                        // Calculate priority based on required date
+                                        $required_date = new DateTime($request['required_date']);
+                                        $current_date = new DateTime();
+                                        $interval = $current_date->diff($required_date);
+                                        $hours_diff = ($interval->days * 24) + $interval->h;
+                                        
+                                        $priority = 'Routine';
+                                        $priority_class = 'badge bg-primary';
+
+                                        if ($interval->invert || $hours_diff <= 24) { // Date is in the past or within 24 hours
+                                            $priority = 'Urgent';
+                                            $priority_class = 'badge bg-danger';
+                                        } elseif ($hours_diff <= 72) {
+                                            $priority = 'High';
+                                            $priority_class = 'badge bg-warning text-dark';
+                                        }
+
+                                        // Update the priority in the database if it has changed
+                                        if ($request['priority'] !== $priority) {
+                                            $update_sql = "UPDATE blood_request SET priority = ? WHERE id = ?";
+                                            $stmt = mysqli_prepare($conn, $update_sql);
+                                            if ($stmt) {
+                                                mysqli_stmt_bind_param($stmt, "si", $priority, $request['id']);
+                                                mysqli_stmt_execute($stmt);
+                                                mysqli_stmt_close($stmt);
+                                            }
+                                        }
+                                    ?>
                                     <tr>
                                         <td><?php echo htmlspecialchars($request['patient_name']); ?></td>
                                         <td><?php echo htmlspecialchars($request['hospital_name']); ?></td>
                                         <td><?php echo htmlspecialchars($request['blood_group']); ?></td>
                                         <td><?php echo htmlspecialchars($request['units']); ?></td>
                                         <td><?php echo date('d M Y', strtotime($request['required_date'])); ?></td>
+                                        <td><span class="<?php echo $priority_class; ?>"><?php echo $priority; ?></span></td>
                                         <td class="text-center">
                                             <a href="approve_blood_request.php?id=<?php echo $request['id']; ?>" class="btn btn-success btn-sm me-2 btn-action">
                                                 <i class="fas fa-check"></i> Approve

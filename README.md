@@ -39,7 +39,7 @@ Our mission is to **save lives** by creating a seamless and efficient ecosystem 
 | 📊 **Admin Dashboard**      | Real-time overview of inventory, requests, and events.                                                                                   |   ✅   |
 | 🩸 **Donor & Patient Forms**  | Easy-to-use forms for donor registration and urgent blood requests.                                                                     |   ✅   |
 | 🎉 **Blood Drive Events**    | Create, manage, and join blood donation events.                                                                                          |   ✅   |
-| stock **Inventory Management** | Track blood units by group, manage stock levels, and get low-stock alerts.                                                            |   ✅   |
+| 📈 **Stock Inventory Management** | Track blood units by group, manage stock levels, and get low-stock alerts.                                                            |   ✅   |
 | 💬 **Feedback System**      | Collect valuable feedback from users to improve the system.                                                                              |   ✅   |
 | 📞 **Contact & Support**    | Emergency helplines and contact forms for immediate assistance.                                                                         |   ✅   |
 | 📱 **Responsive Design**    | Fully responsive UI built with Bootstrap 5, ensuring a great experience on any device.                                                  |   ✅   |
