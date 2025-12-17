@@ -307,73 +307,41 @@ if (session_status() === PHP_SESSION_NONE) {
                             </div>
 
                             <div class="p-4">
-                                <?php
-                                $sql_activity = "(SELECT 'donation' AS activity_type, 'Blood Donation Completed' AS title, CONCAT(d.FULL_NAME, ' donated ', dn.blood_group, ' blood') AS description, dn.created_at AS activity_date FROM donations dn JOIN donor d ON dn.donor_id = d.id ORDER BY dn.created_at DESC LIMIT 1)
-                                UNION ALL
-                                (SELECT 'request' AS activity_type, 'Emergency Request' AS title, CONCAT(br.UNITS, ' unit(s) of ', br.BLOOD_GROUP, ' needed at ', br.HOSPITAL_NAME) AS description, br.created_at AS activity_date FROM blood_request br WHERE br.status = 'pending' ORDER BY br.created_at DESC LIMIT 1)
-                                UNION ALL
-                                (SELECT 'donor' AS activity_type, 'New Donor Registered' AS title, CONCAT(d.FULL_NAME, ' joined as a ', d.BLOOD_GROUP, ' donor') AS description, d.created_at AS activity_date FROM donor d ORDER BY d.created_at DESC LIMIT 1)
-                                UNION ALL
-                                (SELECT 'event' AS activity_type, 'Blood Camp Organized' AS title, CONCAT(e.event_name, ' at ', e.location) AS description, e.created_at AS activity_date FROM blood_events e WHERE e.status = 'approved' ORDER BY e.created_at DESC LIMIT 1)
-                                ORDER BY activity_date DESC";
-
-                                $result_activity = mysqli_query($conn, $sql_activity);
-
-                                if ($result_activity && mysqli_num_rows($result_activity) > 0) {
-                                    while ($row = mysqli_fetch_assoc($result_activity)) {
-                                        $icon = '';
-                                        $icon_class = '';
-                                        switch ($row['activity_type']) {
-                                            case 'donation':
-                                                $icon = '🩸';
-                                                $icon_class = 'donation';
-                                                break;
-                                            case 'request':
-                                                $icon = '🚨';
-                                                $icon_class = 'request';
-                                                break;
-                                            case 'donor':
-                                                $icon = '👤';
-                                                $icon_class = 'registration';
-                                                break;
-                                            case 'event':
-                                                $icon = '🩸';
-                                                $icon_class = 'donation';
-                                                break;
-                                        }
-                                        $time_text = '';
-                                        switch ($row['activity_type']) {
-                                            case 'donation':
-                                                $time_text = '2 mins ago';
-                                                break;
-                                            case 'request':
-                                                $time_text = '15 mins ago';
-                                                break;
-                                            case 'donor':
-                                                $time_text = '1 hour ago';
-                                                break;
-                                            case 'event':
-                                                $time_text = '3 hours ago';
-                                                break;
-                                            default:
-                                                $time_text = 'just now'; // Fallback
-                                                break;
-                                        }
-                                ?>
                                 <div class="d-flex align-items-center gap-3 mb-3 p-3 rounded">
-                                    <div class="activity-icon <?php echo $icon_class; ?>"><?php echo $icon; ?></div>
+                                    <div class="activity-icon donation">🩸</div>
                                     <div class="flex-grow-1">
-                                        <div class="fw-semibold mb-1"><?php echo $row['title']; ?></div>
-                                        <div class="text-muted small"><?php echo $row['description']; ?></div>
+                                        <div class="fw-semibold mb-1">Blood Donation Completed</div>
+                                        <div class="text-muted small">Rahul Kumar donated O+ blood</div>
                                     </div>
-                                    <div class="text-muted small"><?php echo $time_text; ?></div>
+                                    <div class="text-muted small">2 mins ago</div>
                                 </div>
-                                <?php
-                                    }
-                                } else {
-                                    echo "<p class='text-center'>No recent activity</p>";
-                                }
-                                ?>
+
+                                <div class="d-flex align-items-center gap-3 mb-3 p-3 rounded">
+                                    <div class="activity-icon request">🚨</div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold mb-1">Emergency Request</div>
+                                        <div class="text-muted small">AB- blood needed at AIIMS Delhi</div>
+                                    </div>
+                                    <div class="text-muted small">15 mins ago</div>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-3 mb-3 p-3 rounded">
+                                    <div class="activity-icon registration">👤</div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold mb-1">New Donor Registered</div>
+                                        <div class="text-muted small">Priya Sharma joined as B+ donor</div>
+                                    </div>
+                                    <div class="text-muted small">1 hour ago</div>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-3 p-3 rounded">
+                                    <div class="activity-icon donation">🩸</div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold mb-1">Blood Camp Organized</div>
+                                        <div class="text-muted small">50 donors participated in Delhi camp</div>
+                                    </div>
+                                    <div class="text-muted small">3 hours ago</div>
+                                </div>
                             </div>
                         </div>
                     </div>

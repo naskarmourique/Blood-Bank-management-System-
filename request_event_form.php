@@ -69,6 +69,10 @@ if (session_status() === PHP_SESSION_NONE) {
                             <label for="contact_person" class="form-label">Contact Person *</label>
                             <input type="text" class="form-control" id="contact_person" name="contact_person" required>
                         </div>
+                        <div class="col-md-6">
+                            <label for="contact_email" class="form-label">Contact Email *</label>
+                            <input type="email" class="form-control" id="contact_email" name="contact_email" required>
+                        </div>
                         <div class="col-12">
                             <label for="description" class="form-label">Description</label>
                             <textarea class="form-control" id="description" name="description" style="height: 100px; resize: none;"></textarea>

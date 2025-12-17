@@ -103,6 +103,14 @@
                         <div class="invalid-feedback">Valid contact number is required</div>
                     </div>
 
+                    <!-- Email Address -->
+                    <div class="form-group">
+                        <label for="email" class="form-label"><i class="fas fa-envelope"></i> Email Address <span
+                                class="required">*</span></label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">Valid email address is required</div>
+                    </div>
+
                     <!-- Needed Date -->
                     <div class="form-group">
                         <label for="neededDate" class="form-label"><i class="fas fa-calendar-alt"></i> Required By Date

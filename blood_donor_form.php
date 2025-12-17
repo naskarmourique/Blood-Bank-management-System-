@@ -1,3 +1,16 @@
+<?php
+include "connect.php";
+$today = date('Y-m-d');
+$sql_events = "SELECT id, event_name, location FROM blood_events WHERE status = 'approved' AND event_date >= '$today' ORDER BY event_date ASC";
+$result_events = mysqli_query($conn, $sql_events);
+$upcoming_events = [];
+if ($result_events && mysqli_num_rows($result_events) > 0) {
+    while ($row = mysqli_fetch_assoc($result_events)) {
+        $upcoming_events[] = $row;
+    }
+}
+mysqli_close($conn);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,6 +119,22 @@
                         </div>
                     </div>
 
+                    <!-- Event Selection Dropdown (Initially Hidden) -->
+                    <div class="form-group" id="event-group" style="display: none;">
+                        <label for="event" class="form-label">
+                            <i class="fas fa-calendar-check"></i>
+                            Select Event (Optional)
+                        </label>
+                        <select class="form-select" id="event" name="event_id">
+                            <option value="">Select an upcoming event</option>
+                            <?php foreach ($upcoming_events as $event): ?>
+                                <option value="<?php echo htmlspecialchars($event['id']); ?>">
+                                    <?php echo htmlspecialchars($event['event_name']) . ' - ' . htmlspecialchars($event['location']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
                     <!-- State and City -->
                     <div class="row">
                         <div class="col-md-6">
@@ -180,56 +209,6 @@
                         <div class="invalid-feedback">Valid email is required</div>
                     </div>
 
-                    <!-- Password -->
-                    <div class="form-group">
-                        <label for="password" class="form-label">
-                            <i class="fas fa-lock"></i>
-                            Password <span class="required">*</span>
-                            <span class="password-hint">(minimum six characters)</span>
-                        </label>
-                        <input type="password" class="form-control" id="password" name="password" required
-                            minlength="6">
-                        <div class="invalid-feedback">Password must be at least 6 characters</div>
-                    </div>
-
-                    <!-- Confirm Password -->
-                    <div class="form-group">
-                        <label for="confirmPassword" class="form-label">
-                            <i class="fas fa-lock"></i>
-                            Confirm Password <span class="required">*</span>
-                        </label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                            required>
-                        <div class="invalid-feedback">Passwords do not match</div>
-                    </div>
-
-                    <!-- Security Question -->
-                    <div class="form-group">
-                        <label for="securityQuestion" class="form-label">
-                            <i class="fas fa-question-circle"></i>
-                            Security Question <span class="required">*</span>
-                        </label>
-                        <select class="form-select" id="securityQuestion" name="securityQuestion" required>
-                            <option value="">Select Security Question</option>
-                            <option value="pet-name">What is your pet's name?</option>
-                            <option value="mother-maiden">What is your mother's maiden name?</option>
-                            <option value="birth-city">In which city were you born?</option>
-                            <option value="school-name">What is the name of your first school?</option>
-                            <option value="favorite-color">What is your favorite color?</option>
-                        </select>
-                        <div class="invalid-feedback">Please select a security question</div>
-                    </div>
-
-                    <!-- Security Answer -->
-                    <div class="form-group">
-                        <label for="securityAnswer" class="form-label">
-                            <i class="fas fa-key"></i>
-                            Security Answer <span class="required">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="securityAnswer" name="securityAnswer" required>
-                        <div class="invalid-feedback">Security answer is required</div>
-                    </div>
-
                     <!-- Last Time Blood Donated -->
                     <div class="form-group">
                         <label for="lastDonation" class="form-label">
@@ -284,6 +263,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"> </script>
     <!-- External JS Validations -->
     <script src="donor.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const typeSelect = document.getElementById('type');
+            const eventGroup = document.getElementById('event-group');
+
+            typeSelect.addEventListener('change', function() {
+                if (this.value === 'organization' || this.value === 'corporate') {
+                    eventGroup.style.display = 'block';
+                } else {
+                    eventGroup.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

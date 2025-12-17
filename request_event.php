@@ -16,6 +16,7 @@ if (isset($_POST['submit'])) {
     $end_time = $_POST['end_time'];
     $target_donors = (int)$_POST['target_donors'];
     $contact_person = $_POST['contact_person'];
+    $contact_email = $_POST['contact_email'];
     $description = $_POST['description'];
     $status = 'pending'; // Requests always start as pending
 
@@ -24,8 +25,8 @@ if (isset($_POST['submit'])) {
     // $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
     // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO blood_events (event_name, event_type, location, event_date, start_time, end_time, contact_person, target_donors, description, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssisss", $event_name, $event_type, $location, $event_date, $start_time, $end_time, $contact_person, $target_donors, $description, $status);
+    $stmt = $conn->prepare("INSERT INTO blood_events (event_name, event_type, location, event_date, start_time, end_time, contact_person, contact_email, target_donors, description, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssssiss", $event_name, $event_type, $location, $event_date, $start_time, $end_time, $contact_person, $contact_email, $target_donors, $description, $status);
 
     if ($stmt->execute()) {
         // Redirect with a success message

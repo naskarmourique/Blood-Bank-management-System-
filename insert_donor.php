@@ -4,92 +4,73 @@ error_reporting(E_ALL);
 
 include "connect.php";
 
+if (isset($_POST['submit'])) {
+    $full_name = $_POST["fullName"] ?? null;
+    $type = $_POST["type"] ?? null;
+    $blood_group = $_POST["bloodGroup"] ?? null;
+    $state = $_POST["state"] ?? null;
+    $city = $_POST["city"] ?? null;
+    $mob = $_POST["mobile"] ?? null;
+    $email = $_POST["email"] ?? null;
+    $lastDonation = $_POST["lastDonation"] ?? null;
+    $agreeTerms = isset($_POST["agreeTerms"]);
+    // Get the event_id, default to null if empty
+    $event_id = !empty($_POST["event_id"]) ? (int)$_POST["event_id"] : null;
 
-$response = [];
-
-if ($conn->connect_error) {
-    header("Location: landing_page.php?status=error&message=" . urlencode('Connection failed: ' . $conn->connect_error));
-    exit;
-}
-
-$FULL_NAME = $_POST["fullName"] ?? null;
-$TYPE = $_POST["type"] ?? null;
-$BLOOD_GROUP = $_POST["bloodGroup"] ?? null;
-$STATE = $_POST["state"] ?? null;
-$CITY = $_POST["city"] ?? null;
-$MOB = $_POST["mobile"] ?? null;
-$EMAIL = $_POST["email"] ?? null;
-$PASSWORD = $_POST["password"] ?? null;
-$C_PASSWORD = $_POST["confirmPassword"] ?? null;
-$S_QUESTION = $_POST["securityQuestion"] ?? null;
-$S_ANSWER = $_POST["securityAnswer"] ?? null;
-$lastDonation = $_POST["lastDonation"] ?? null;
-
-// Convert lastDonation string to a valid date or NULL
-$convertedLastDonation = null;
-if ($lastDonation === 'never') {
-    $convertedLastDonation = null;
-} else {
-    $currentDate = new DateTime();
-    switch ($lastDonation) {
-        case '0-3-months':
-            $currentDate->modify('-3 months');
-            break;
-        case '3-6-months':
-            $currentDate->modify('-6 months');
-            break;
-        case '6-12-months':
-            $currentDate->modify('-12 months');
-            break;
-        case '1-year-above':
-            $currentDate->modify('-1 year'); // This is a simplification, could be more precise
-            break;
-        default:
-            // Handle unexpected values, perhaps log an error or set to null
-            $convertedLastDonation = null;
-            break;
+    // --- Form Validation ---
+    if (!$full_name || !$type || !$blood_group || !$state || !$mob || !$email || !$agreeTerms) {
+        header("Location: blood_donor_form.php?status=error&message=" . urlencode('All required fields must be filled and terms must be agreed to.'));
+        exit;
     }
-    if ($convertedLastDonation !== null) { // Only format if it's not already null from default case
-        $convertedLastDonation = $currentDate->format('Y-m-d');
-    }
-}
 
-if (!$FULL_NAME || !$TYPE || !$BLOOD_GROUP || !$STATE || !$MOB || !$EMAIL || !$PASSWORD || !$C_PASSWORD || !$S_QUESTION || !$S_ANSWER) {
-    header("Location: landing_page.php?status=error&message=" . urlencode('All required fields must be filled.'));
-    exit;
-}
+    // --- Database Operation ---
+    $stmt = null;
+    try {
+        $convertedLastDonation = null;
+        if ($lastDonation && $lastDonation !== 'never') {
+            $currentDate = new DateTime();
+            if ($lastDonation === '0-3-months') $currentDate->modify('-3 months');
+            elseif ($lastDonation === '3-6-months') $currentDate->modify('-6 months');
+            elseif ($lastDonation === '6-12-months') $currentDate->modify('-12 months');
+            elseif ($lastDonation === '1-year') $currentDate->modify('-1 year');
+            $convertedLastDonation = $currentDate->format('Y-m-d');
+        }
 
-if ($PASSWORD !== $C_PASSWORD) {
-    header("Location: landing_page.php?status=error&message=" . urlencode('Passwords do not match.'));
-    exit;
-}
+        $status = 'pending';
 
-$insert = "INSERT INTO `donor`(`FULL_NAME`, `TYPE`, `BLOOD_GROUP`, `STATE`, `CITY`, `MOB`, `EMAIL`, `PASSWORD`, `S_QUESTION`, `S_ANSWER`, `LAST_DONATE`, `status`, `event_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insert = "INSERT INTO `donor`(`full_name`, `type`, `blood_group`, `state`, `city`, `mob`, `email`, `last_donate`, `status`, `event_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $insert);
 
-$stmt = mysqli_prepare($conn, $insert);
+        if ($stmt === false) {
+            throw new Exception('Database prepare failed: ' . mysqli_error($conn));
+        }
 
-if ($stmt === false) {
-    header("Location: landing_page.php?status=error&message=" . urlencode('Prepare failed: ' . mysqli_error($conn)));
-    exit;
-}
+        mysqli_stmt_bind_param($stmt, "sssssssssi", $full_name, $type, $blood_group, $state, $city, $mob, $email, $convertedLastDonation, $status, $event_id);
 
-$status = 'pending'; // Default status for new donor registrations
-$event_id = null; // Default event_id is null, as it's not coming from the form
-
-mysqli_stmt_bind_param($stmt, "sssssssssssss", $FULL_NAME, $TYPE, $BLOOD_GROUP, $STATE, $CITY, $MOB, $EMAIL, $PASSWORD, $S_QUESTION, $S_ANSWER, $convertedLastDonation, $status, $event_id);
-
-if (mysqli_stmt_execute($stmt)) {
-    if (mysqli_stmt_affected_rows($stmt) == 1) {
-        header("Location: landing_page.php?status=success&message=" . urlencode('Donor registered successfully!'));
-    } else {
-        header("Location: landing_page.php?status=error&message=" . urlencode('Query executed, but no row was inserted. Please check database configuration.'));
+        if (mysqli_stmt_execute($stmt)) {
+            if (mysqli_stmt_affected_rows($stmt) == 1) {
+                header("Location: landing_page.php?status=success&message=" . urlencode('Donor registered successfully!'));
+                exit;
+            } else {
+                throw new Exception('Query executed, but no row was inserted.');
+            }
+        } else {
+            throw new Exception('Database execute failed: ' . mysqli_stmt_error($stmt));
+        }
+    } catch (Exception $e) {
+        if (!headers_sent()) {
+            header("Location: blood_donor_form.php?status=error&message=" . urlencode($e->getMessage()));
+        } else {
+            // Fallback if headers are already sent
+            echo "Error: " . htmlspecialchars($e->getMessage());
+        }
+        exit;
+    } finally {
+        if ($stmt) mysqli_stmt_close($stmt);
+        if ($conn) mysqli_close($conn);
     }
 } else {
-    header("Location: landing_page.php?status=error&message=" . urlencode('Execute failed: ' . mysqli_stmt_error($stmt)));
+    header("Location: blood_donor_form.php");
+    exit;
 }
-
-// No need to echo json_encode($response); here anymore
-
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
 ?>
