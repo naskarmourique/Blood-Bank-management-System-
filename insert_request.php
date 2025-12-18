@@ -2,6 +2,15 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Load PHPMailer files
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
 include "connect.php";
 
 if (isset($_POST['pName'])) {
@@ -60,8 +69,43 @@ if (isset($_POST['pName'])) {
                 
                 if (mysqli_stmt_execute($stmt_request)) {
                     mysqli_commit($conn);
-                    header("Location: landing_page.php?status=success&message=" . urlencode('Blood request submitted successfully!'));
+
+                    // SEND EMAIL CONFIRMATION
+                    $mail = new PHPMailer(true);
+
+                    try {
+                        // --- SERVER SETTINGS ---
+                        // You must update these settings with your own email provider's details.
+                        // For example, if using Gmail, search for "Gmail SMTP settings".
+                        $mail->isSMTP();
+                        $mail->Host       = 'smtp.gmail.com'; // e.g., 'smtp.gmail.com'
+                        $mail->SMTPAuth   = true;
+                        $mail->Username   = 'bloodconnect8@gmail.com'; // Your email address
+                        $mail->Password   = 'uaga mivb vvwj qvwg';    // Your email password or app-specific password
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        $mail->Port       = 587;
+
+                        // --- RECIPIENTS ---
+                        $mail->setFrom('no-reply@yourdomain.com', 'BloodConnect');
+                        $mail->addAddress($email, $patientName); // Uses the email and name from the form
+
+                        // --- CONTENT ---
+                        $mail->isHTML(true);
+                        $mail->Subject = 'Your Blood Request has been Received';
+                        $mail->Body    = "Dear $patientName,<br><br>Thank you for your blood request. We have successfully received it and our team will process it shortly.<br><br><b>Request Details:</b><br>Blood Group: $bloodGroup<br>Units Required: $units<br><br>Thank you for using BloodConnect.<br><br>Best regards,<br>The BloodConnect Team";
+                        $mail->AltBody = "Dear $patientName,\n\nThank you for your blood request. We have successfully received it and our team will process it shortly.\n\nRequest Details:\nBlood Group: $bloodGroup\nUnits Required: $units\n\nThank you for using BloodConnect.\n\nBest regards,\nThe BloodConnect Team";
+
+                        $mail->send();
+                        $redirect_message = 'Blood request submitted successfully! A confirmation email has been sent.';
+                    } catch (Exception $e) {
+                        // Email sending failed, but the request was saved.
+                        // We will still inform the user, but note the email failure.
+                        $redirect_message = 'Blood request submitted successfully! However, the confirmation email could not be sent.';
+                    }
+
+                    header("Location: landing_page.php?status=success&message=" . urlencode($redirect_message));
                     exit;
+
                 } else {
                     throw new Exception('Failed to submit blood request.');
                 }

@@ -1,4 +1,11 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
 include 'admin_check.php';
 include 'connect.php';
 
@@ -23,7 +30,36 @@ if (isset($_GET['id'])) {
 
         if ($stmt->execute()) {
             if ($stmt->affected_rows > 0) {
-                header("Location: manage_requests.php?message=Event approved successfully!");
+                $mail = new PHPMailer(true);
+                $redirect_message = 'Event approved successfully!';
+
+                try {
+                    // --- SERVER SETTINGS ---
+                    $mail->isSMTP();
+                    $mail->Host       = 'smtp.gmail.com';
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = 'bloodconnect8@gmail.com';
+                    $mail->Password   = 'uaga mivb vvwj qvwg';
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port       = 587;
+
+                    // --- RECIPIENTS ---
+                    $mail->setFrom('no-reply@yourdomain.com', 'BloodConnect');
+                    $mail->addAddress($contact_email, $contact_person);
+
+                    // --- CONTENT ---
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Your Blood Drive Event has been Approved';
+                    $mail->Body    = "Dear $contact_person,<br><br>Great news! Your request to organize the blood drive event, '<b>$event_name</b>', has been approved by the BloodConnect team.<br><br>We are excited to partner with you to make this event a success. You can now view your approved event on our events page.<br><br>Thank you for your valuable contribution to our cause.<br><br>Best regards,<br>The BloodConnect Team";
+                    $mail->AltBody = "Dear $contact_person,\n\nGreat news! Your request to organize the blood drive event, '$event_name', has been approved by the BloodConnect team.\n\nWe are excited to partner with you to make this event a success. You can now view your approved event on our events page.\n\nThank you for your valuable contribution to our cause.\n\nBest regards,\nThe BloodConnect Team";
+
+                    $mail->send();
+                    $redirect_message = 'Event approved successfully and a confirmation email has been sent.';
+                } catch (Exception $e) {
+                    $redirect_message = 'Event approved successfully, but the confirmation email could not be sent.';
+                }
+                header("Location: manage_requests.php?message=" . urlencode($redirect_message));
+
             } else {
                 header("Location: manage_requests.php?error=Event could not be approved. It may have already been processed.");
             }
