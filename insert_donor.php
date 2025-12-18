@@ -2,6 +2,15 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Load PHPMailer files
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
 include "connect.php";
 
 if (isset($_POST['submit'])) {
@@ -49,7 +58,37 @@ if (isset($_POST['submit'])) {
 
         if (mysqli_stmt_execute($stmt)) {
             if (mysqli_stmt_affected_rows($stmt) == 1) {
-                header("Location: landing_page.php?status=success&message=" . urlencode('Donor registered successfully!'));
+                // SEND EMAIL CONFIRMATION
+                $mail = new PHPMailer(true);
+                $redirect_message = 'Donor registered successfully!'; // Default message
+
+                try {
+                    // --- SERVER SETTINGS ---
+                    $mail->isSMTP();
+                    $mail->Host       = 'smtp.gmail.com';
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = 'bloodconnect8@gmail.com';
+                    $mail->Password   = 'uaga mivb vvwj qvwg';
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port       = 587;
+
+                    // --- RECIPIENTS ---
+                    $mail->setFrom('no-reply@yourdomain.com', 'BloodConnect');
+                    $mail->addAddress($email, $full_name);
+
+                    // --- CONTENT ---
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Thank you for Registering as a Blood Donor';
+                    $mail->Body    = "Dear $full_name,<br><br>Thank you for registering as a blood donor with BloodConnect. Your willingness to help save lives is greatly appreciated.<br><br>Our team will review your application, and you will be notified once it is approved.<br><br><b>Your Details:</b><br>Blood Group: $blood_group<br>Location: $city, $state<br><br>Best regards,<br>The BloodConnect Team";
+                    $mail->AltBody = "Dear $full_name,\n\nThank you for registering as a blood donor with BloodConnect. Your willingness to help save lives is greatly appreciated.\n\nOur team will review your application, and you will be notified once it is approved.\n\nYour Details:\nBlood Group: $blood_group\nLocation: $city, $state\n\nBest regards,\nThe BloodConnect Team";
+
+                    $mail->send();
+                    $redirect_message = 'Donor registered successfully! A confirmation email has been sent.';
+                } catch (Exception $e) {
+                    $redirect_message = 'Donor registered successfully! However, the confirmation email could not be sent.';
+                }
+
+                header("Location: landing_page.php?status=success&message=" . urlencode($redirect_message));
                 exit;
             } else {
                 throw new Exception('Query executed, but no row was inserted.');

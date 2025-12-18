@@ -19,14 +19,14 @@
             </div>
 
             <div class="border-top border-white border-opacity-25 pt-4">
-                <p class="mb-2">© 2025 Government of India. All rights reserved. | Version 3.2.1</p>
+                <p class="mb-2">© 2025 Government of India. All rights reserved. | Version 5.3.6</p>
                 <p class="mb-0">
                     <a href="tel:+917855539940" style="color: white; text-decoration: none;">
                         📞 Helpline: +91-7855539940
                     </a>
                     &nbsp; | &nbsp;
-                    <a href="mailto:ehospital@gov.in" style="color: white; text-decoration: none;">
-                        ✉️ Email: BloodConnect@gov.in
+                    <a href="mailto:bloodconnect8@gmail.com" style="color: white; text-decoration: none;">
+                        ✉️ Email: bloodconnect8@gmail.com
                     </a>
                 <div class="footer-address">
                 </div> <br> <br>
